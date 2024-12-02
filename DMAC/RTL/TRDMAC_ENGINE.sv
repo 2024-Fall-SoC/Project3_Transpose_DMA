@@ -1,3 +1,7 @@
+// Copyright (c) 2024 Sungkyunkwan University
+//
+// Authors:
+// - Jungrae Kim <dale40@skku.edu>
 
 module TRDMAC_ENGINE
 (

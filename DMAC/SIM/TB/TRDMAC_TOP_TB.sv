@@ -1,3 +1,8 @@
+// Copyright (c) 2024 Sungkyunkwan University
+//
+// Authors:
+// - Jungrae Kim <dale40@skku.edu>
+
 `define     IP_VER      32'h000
 `define     SRC_ADDR    32'h100
 `define     DST_ADDR    32'h104
