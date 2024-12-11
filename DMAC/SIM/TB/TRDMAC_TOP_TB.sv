@@ -11,7 +11,7 @@
 `define     DONE        32'h110
 
 `define     TIMEOUT_CYCLE   4000000
-module TRDMAC_TOP_TB ();
+module DMAC_TOP_TB ();
 
     reg                     clk;
     reg                     rst_n;
@@ -198,6 +198,7 @@ module TRDMAC_TOP_TB ();
         $display("");
         $display("");
 
+        is_pass = 1;
         for (int i = 0; i < mat_width; i++) begin
             for (int j = 0; j < mat_width; j++) begin
                 if (origin_matrix[(i*mat_width)+j] != transpose_matrix[(j*mat_width)+i]) begin
@@ -210,17 +211,18 @@ module TRDMAC_TOP_TB ();
         
         origin_matrix.delete();
         transpose_matrix.delete();
-        is_pass = 1;
     endtask
     
     int src_addr;
     int dst_addr;
     int mat_width;
 
-    int testcase1_pass = 0;
-    int testcase2_pass = 0;
-    int testcase3_pass = 0;
-    int testcase4_pass = 0;
+    int tescase_pass = 1;
+
+    int testcase1_pass = 1;
+    int testcase2_pass = 1;
+    int testcase3_pass = 1;
+    int testcase4_pass = 1;
     time time_0, time_1;
 
     // main
@@ -235,12 +237,14 @@ module TRDMAC_TOP_TB ();
         $display("===================================================");
         gen_matrix(src_addr, mat_width);
         start_dma(src_addr, dst_addr, mat_width, time_0);
-        check_result(dst_addr, mat_width, testcase1_pass);
-        if(testcase1_pass == 1) begin
+        tescase_pass = 1;
+        check_result(dst_addr, mat_width, tescase_pass);
+        if(tescase_pass == 1) begin
             $display("TestCase 1 Pass!");
             $display("<< TestCase 1's Execution Time: %d (ns)", time_0);
         end else begin
             $display("TestCase 1 Fail!");
+            testcase1_pass = 0;
         end
         $display("");
 
@@ -252,11 +256,13 @@ module TRDMAC_TOP_TB ();
         $display("===================================================");
         gen_matrix(src_addr, mat_width);
         start_dma(src_addr, dst_addr, mat_width, time_1);
-        check_result(dst_addr, mat_width, testcase2_pass);
-        if(testcase2_pass == 1) begin
+        tescase_pass = 1;
+        check_result(dst_addr, mat_width, tescase_pass);
+        if(tescase_pass == 1) begin
             $display("TestCase 2 Pass!");
         end else begin
             $display("TestCase 2 Fail!");
+            testcase2_pass = 0;
         end
         $display("");
 
@@ -268,11 +274,13 @@ module TRDMAC_TOP_TB ();
         $display("===================================================");
         gen_matrix(src_addr, mat_width);
         start_dma(src_addr, dst_addr, mat_width, time_1);
-        check_result(dst_addr, mat_width, testcase3_pass);
-        if(testcase3_pass == 1) begin
+        tescase_pass = 1;
+        check_result(dst_addr, mat_width, tescase_pass);
+        if(tescase_pass == 1) begin
             $display("TestCase 3 Pass!");
         end else begin
             $display("TestCase 3 Fail!");
+            testcase3_pass = 0;
         end
         $display("");
 
@@ -284,11 +292,13 @@ module TRDMAC_TOP_TB ();
         $display("===================================================");
         gen_matrix(src_addr, mat_width);
         start_dma(src_addr, dst_addr, mat_width, time_1);
-        check_result(dst_addr, mat_width, testcase4_pass);
-        if(testcase4_pass == 1) begin
+        tescase_pass = 1;
+        check_result(dst_addr, mat_width, tescase_pass);
+        if(tescase_pass == 1) begin
             $display("TestCase 4 Pass!");
         end else begin
             $display("TestCase 4 Fail!");
+            testcase4_pass = 0;
         end;
 
         $display("");
